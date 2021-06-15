@@ -3,4 +3,5 @@ Generic Composite Oven Controller
 
 
 ## TODO
-- [ ] Need to add time compenstation for `millis()` to actual seconds (add roughly 3%)
+- [ ] Add some system to allow for recovery if power is interrupted
+- [ ] Add some system to allow the system to be reset if needed
