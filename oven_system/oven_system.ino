@@ -113,7 +113,7 @@ void loop() {
         // Gets times
         // Times are (target - start) / ramp rate
         elapsedTime = 0;
-        setPointTimes[0] = millis();                                                          // Start time
+        setPointTimes[0] = actualMillis();                                                          // Start time
         setPointTimes[1] = (temperature[1] - temperature[0]) * 60000 / fields[1].toFloat();   // Uses rate and difference to find ramp time
         setPointTimes[2] = fields[2].toFloat() * 60000;                                       // Records hold time
         setPointTimes[3] = (temperature[3] - temperature[2]) * 60000 / fields[1].toFloat();   // Second ramp
@@ -130,7 +130,7 @@ void loop() {
       // Control
       // Gets linearly interpolated temperature based on time and bounding set points
       // map() outputs long int, needed floats so I adjusted their source code
-      targetTemp = (millis() - setPointTimes[stage - 1]) * (temperature[stage] - temperature[stage - 1]);
+      targetTemp = (actualMillis() - setPointTimes[stage - 1]) * (temperature[stage] - temperature[stage - 1]);
       targetTemp /= (setPointTimes[stage] - setPointTimes[stage - 1]);
       targetTemp += temperature[stage - 1];
       curTemp = readTemperature(MAX_SCK, MAX_CS, MAX_SO); // Gets current temp
@@ -145,8 +145,8 @@ void loop() {
       }
       
       // Time
-      if (millis() > setPointTimes[stage]) stage++; // Checks if approriate stage
-      elapsedTime = millis() - setPointTimes[0];    // Elaplsed time in ms
+      if (actualMillis() > setPointTimes[stage]) stage++; // Checks if approriate stage
+      elapsedTime = actualMillis() - setPointTimes[0];    // Elaplsed time in ms
       elapsedTime /= 60000;                         // Elapsed time in minutes
       
       // Screen stuff
@@ -257,4 +257,20 @@ void buttonAction() {
       }
       break;
   }
+}
+
+// Function used to return a better approximation of time elasped
+unsigned long actualMillis() {
+  unsigned long trueMillis = millis();
+
+  // millis() returns roughly 971 "milliseconds" per actual second due to the way millis() is set up with timers.
+  // Scaling it up by a factor of 1.024 is needed to get roughly 1000 counts per actual second.
+  // To keep it to integer math dividing by 125, multiplying by 128 is used.
+  
+  trueMillis = trueMillis / 125;
+  trueMillis = trueMillis * 128;
+  
+  // Multiplication after division to avoid overflows with long work times
+  
+  return trueMillis;
 }
