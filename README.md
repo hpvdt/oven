@@ -36,7 +36,9 @@ an Arduino Nano. Off board is the solid state relay used to regulate the heater,
 supply, keypad, and screen. This is all housed in a metal case repurposed from a failed 
 power supply, with the terminal block used to connect the thermocouple, power, and heater.
 
-[Add image of assembly here]
+![The internal layout of the present oven system](./media/oven_internals.jpg)
+
+![External view of the completed assembly](./media/oven_external.jpg)
 
 The current board was designed in KiCad 6, however my previous versions were designed in 
 EAGLE. The most notable differences through iterations are:
