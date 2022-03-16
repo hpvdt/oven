@@ -8,25 +8,25 @@ LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 //LiquidCrystal_I2C lcd(0x27, 4, 5, 6, 0, 1, 2, 3, 7, POSITIVE);
 
 // Keypad config
-const byte row1 = A2; // Row 1 pin
-const byte row2 = A3;
-const byte row3 = 2;
-const byte row4 = 3;
-const byte col1 = 4; // Column 1 pin
-const byte col2 = 5;
-const byte col3 = 6;
-const byte col4 = 7;
+const byte row1 = 3; // Row 1 pin
+const byte row2 = 2;
+const byte row3 = A3;
+const byte row4 = A2;
+const byte col1 = 7; // Column 1 pin
+const byte col2 = 6;
+const byte col3 = 5;
+const byte col4 = 4;
 
 char buttonPressed;
 // Keypad works by detecting the intersection of a row and col pulling down an input. (A column pulling the row down)
 
 // MAX6675 Pins
-const byte MAX_SCK = 13;
+const byte MAX_SCK = A1;
 const byte MAX_CS = 9;
-const byte MAX_SO = 12;
+const byte MAX_SO = A0;
 
 // Heater 
-const int heater = 12;  // Heater relay pin
+const byte heater = 12;  // Heater relay pin
 bool heaterState;       // State variable
 
 // Control variables

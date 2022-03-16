@@ -46,6 +46,8 @@ char checkKeypad() {
 
   return button; // Return the button pressed
 }
+
+
 void waitForRelease(bool state) {
   while (digitalRead(row1) == state) {
     delay(10); // Waits until pin is out of test state
