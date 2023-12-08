@@ -54,4 +54,6 @@ A small to-do list of future features that could improve the system.
 
 - [ ] Add some system to allow for recovery if power is interrupted
 - [ ] Add some system to allow the system to be reset if needed
-- [ ] Figure out why SPI programming doesn't work if the MAX6675 is connected in any way
+- [x] Figure out why SPI programming doesn't work if the MAX6675 is connected in any way
+    - This was due to the MAX6675 not having a pullup on nCS, so it was active during programming of the ATmega and interfered on the SPI bus.
+    - This **should** be revised in future hardware revisions
