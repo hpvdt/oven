@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name oven)(type KiCad)(uri ${KIPRJMOD}/oven.pretty)(options "")(descr ""))
-)

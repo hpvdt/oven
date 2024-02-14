@@ -1,7 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP MAX6675
-F https://datasheets.maximintegrated.com/en/ds/MAX6675.pdf
-$ENDCMP
-#
-#End Doc Library
