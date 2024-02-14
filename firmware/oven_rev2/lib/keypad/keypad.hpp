@@ -8,6 +8,5 @@ extern char buttonPressed;
 // Checks keypad for what button is pressed (returns 'x' if nothing pressed)
 void setupKeypad();
 char checkKeypad();
-void waitForRelease(bool state);
 
 #endif
