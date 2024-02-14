@@ -48,7 +48,7 @@ void loop() {
   switch (screen) {
     case 0: // Setup first point
       printLeft(0, F("Target Temp"));
-      printLeft(3, oneDecimal(readTemperature()) + " ");
+      printLeft(3, oneDecimal(readTemperature()) + "C "); // Show temp on initial screen for error check
       printLeft(1, F("Rise Rt. c/m"));
       printLeft(2, F("Hold Time (m)"));
       printCenter(3, F("Stg 1"));
