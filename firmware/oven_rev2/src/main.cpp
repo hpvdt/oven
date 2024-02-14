@@ -20,13 +20,11 @@ const int numFields = 3;              // Used as a limit for number of fields on
 const int maxFieldLength = 6;         // Max length of entered data
 String fields[numFields][numScreens]; // Data fields on each screen
 
-int stage = 1;                        // Records cooking stage
-double targetTemp, curTemp;           // Target and current temp
-double temperature[5];                // Stores temperature set points
-const double tempTol = 3;             // Tolerance for under temperature - IMPORTANT!
+int bakeStage = 1;                    // Records baking stage
+float temperature[5];                 // Stores temperature set points
+const float tempTol = 3.0;            // Tolerance for under temperature - IMPORTANT!
 unsigned long setPointTimes[5];       // Records time for changes
-double elapsedTime;                   // Stores run time elapsed since bake started
-String endTime;                       // Used for status display (to minimize repeated instructions)
+String endTime;                       // Used for status display (to minimize repeated calculation)
 
 void setup() {
   setupKeypad();
@@ -72,7 +70,7 @@ void loop() {
 
       // Check if starting oven
       if (screen == (numScreens - 2)) {
-        stage = 1; // Entered first stage
+        bakeStage = 1; // Entered first stage
         
         //Sets temperature points
         temperature[0] = readTemperature(); // Record starting temp
@@ -83,7 +81,6 @@ void loop() {
 
         // Gets times
         // Times are (target - start) / ramp rate
-        elapsedTime = 0;
         setPointTimes[0] = actualMillis();                                                      // Start time
         setPointTimes[1] = (temperature[1] - temperature[0]) * 60000 / fields[1][0].toFloat();  // Uses rate and difference to find ramp time
         setPointTimes[2] = fields[2][0].toFloat() * 60000;                                      // Records hold time
@@ -99,18 +96,20 @@ void loop() {
       // Control
       // Gets linearly interpolated temperature based on time and bounding set points
       // map() outputs long int, needed floats so I adjusted their source code
-      targetTemp = (actualMillis() - setPointTimes[stage - 1]) * (temperature[stage] - temperature[stage - 1]);
-      targetTemp /= (setPointTimes[stage] - setPointTimes[stage - 1]);
-      targetTemp += temperature[stage - 1];
-      curTemp = readTemperature(); // Gets current temp
+      float targetTemp, curTemp;
+      curTemp = readTemperature();
+      targetTemp = (actualMillis() - setPointTimes[bakeStage - 1]) * (temperature[bakeStage] - temperature[bakeStage - 1]);
+      targetTemp /= (setPointTimes[bakeStage] - setPointTimes[bakeStage - 1]);
+      targetTemp += temperature[bakeStage - 1];
 
-      if (curTemp < (targetTemp - tempTol)) heaterState = HIGH; // Too cold
-      else if (curTemp > targetTemp) heaterState = LOW; // Too hot
+      if (curTemp < (targetTemp - tempTol)) heaterState = HIGH;
+      else if (curTemp > targetTemp) heaterState = LOW;
       
       // Time
-      if (actualMillis() > setPointTimes[stage]) stage++; // Checks if approriate stage
-      elapsedTime = actualMillis() - setPointTimes[0];    // Elaplsed time in ms
-      elapsedTime /= 60000;                         // Elapsed time in minutes
+      float elapsedTime;
+      if (actualMillis() > setPointTimes[bakeStage]) bakeStage++; // Checks if approriate stage
+      elapsedTime = actualMillis() - setPointTimes[0];            // Elaplsed time in ms
+      elapsedTime /= 60000;                                       // Elapsed time in minutes
       
       // Screen stuff
       printLeft(0, F("Cur/Tar"));
@@ -134,7 +133,7 @@ void loop() {
       for (int i = 0; i < numFields; i++) printRight(i, fields[i][screen]);
 
       // Check for finish (past stage 4)
-      if (stage > 4) {
+      if (bakeStage > 4) {
         screen++;
         lcd.clear();
       }
