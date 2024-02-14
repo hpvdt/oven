@@ -90,7 +90,7 @@ void loop() {
         setPointTimes[0] = actualMillis();                                                          // Start time
         setPointTimes[1] = (temperature[1] - temperature[0]) * 60000 / fields[1].toFloat();   // Uses rate and difference to find ramp time
         setPointTimes[2] = fields[2].toFloat() * 60000;                                       // Records hold time
-        setPointTimes[3] = (temperature[3] - temperature[2]) * 60000 / fields[1].toFloat();   // Second ramp
+        setPointTimes[3] = (temperature[3] - temperature[2]) * 60000 / fields[4].toFloat();   // Second ramp
         setPointTimes[4] = fields[2 + numFields].toFloat() * 60000;                           // Last hold
 
         for (int i = 1; i <= 4; i++) {
