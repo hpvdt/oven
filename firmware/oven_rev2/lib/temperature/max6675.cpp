@@ -15,6 +15,12 @@ void setupMAX6675() {
     digitalWrite(MAX_CS, HIGH);
 }
 
+/**
+ * @brief Reads temperature from MAX6675 chip
+ * @note Uses bit-banged SPI so not the fastest implementation. Consider switching to a library.
+ * 
+ * @return Temperature in Celsius as float. -1 if there is an error.
+ */
 float readTemperatureMAX6675() {
     uint16_t temperature = 0;
 
