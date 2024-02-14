@@ -207,7 +207,13 @@ void buttonAction() {
   }
 }
 
-// Function used to return a better approximation of time elasped
+/**
+ * @brief A more accurate time
+ * 
+ * @note Takes the value from `millis()` and adjusts it to counter resonator and implementation inaccuracies
+ * 
+ * @return Adjusted millisecond count 
+ */
 unsigned long actualMillis() {
   unsigned long trueMillis = millis();
 
@@ -219,6 +225,10 @@ unsigned long actualMillis() {
   trueMillis = trueMillis * 128;
   
   // Multiplication after division to avoid overflows with long work times
+
+  // This is scaling based on board specific resonator tolerance
+  trueMillis = trueMillis / 1000;
+  trueMillis = trueMillis *  977;
   
   return trueMillis;
 }
