@@ -8,37 +8,37 @@
 #include "temperature.hpp"
 
 // Heater 
-const byte heater = 12;  // Heater relay pin
-bool heaterState;       // State variable
+const byte heater = 12;               // Heater relay pin
+bool heaterState;                     // Heater state
 
 // Control variables
-int screen, field;                  // Used for display
-const int numScreens = 4;           // Used as a limit for number of distinct screens
-const int numFields = 3;            // Used as a limit for number of fields on a screen
+int screen, field;                    // Used for display state
+const int numScreens = 4;             // Used as a limit for number of distinct screens
+const int numFields = 3;              // Used as a limit for number of fields on a screen
 
 // User input field configuration
-const int maxFieldLength = 6;        // Max length of entered data
-String fields[9];                    // Used to display entry data (should have numFields * numScreens elements)
+const int maxFieldLength = 6;         // Max length of entered data
+String fields[numFields][numScreens]; // Data fields on each screen
 
-int stage = 1;                          // Records cooking stage
-double targetTemp, curTemp;              // Target and current temp
-double temperature[5];                   // Used to store temp set points
-const double tempTol = 5;                // Used as tolerance for over temp - IMPORTANT
-unsigned long setPointTimes[5];         // Used for changes
-double elapsedTime;                      // Used for status display
-String endTime;                         // Used for status display (to minimize repeated instructions)
+int stage = 1;                        // Records cooking stage
+double targetTemp, curTemp;           // Target and current temp
+double temperature[5];                // Stores temperature set points
+const double tempTol = 3;             // Tolerance for under temperature - IMPORTANT!
+unsigned long setPointTimes[5];       // Records time for changes
+double elapsedTime;                   // Stores run time elapsed since bake started
+String endTime;                       // Used for status display (to minimize repeated instructions)
 
 void setup() {
   setupKeypad();
   setupTemperature();
 
-  pinMode(heater, OUTPUT);            // Controls relay
-  heaterState = LOW;                  // Off by default
+  // Set heater to start off until programmed
+  pinMode(heater, OUTPUT);
+  heaterState = LOW;
   digitalWrite(heater, heaterState);
 
   setupDisplay();
 
-  // Initialization
   screen = 0;
   field = 0;
 }
@@ -52,9 +52,7 @@ void loop() {
       printLeft(2, F("Hold Time (m)"));
       printCenter(3, F("Stg 1"));
       printCursor();
-      for (int i = 0; i < numFields; i++) {
-        printRight(i, fields[i + numFields * screen]);
-      }
+      for (int i = 0; i < numFields; i++) printRight(i, fields[i][screen]);
       printRight(3, "Stg 2>");
 
       buttonAction(); // Performs button action
@@ -66,9 +64,7 @@ void loop() {
       printLeft(3, F("<Stg 1"));
       printCenter(3, F("Stg 2"));
       printCursor();
-      for (int i = 0; i < numFields; i++) {
-        printRight(i, fields[i + numFields * screen]);
-      }
+      for (int i = 0; i < numFields; i++) printRight(i, fields[i][screen]);
       printRight(3, "Strt>");
 
       buttonAction(); // Performs button action
@@ -79,23 +75,21 @@ void loop() {
         
         //Sets temperature points
         temperature[0] = readTemperature(); // Record starting temp
-        temperature[1] = fields[0].toFloat();
+        temperature[1] = fields[0][0].toFloat();
         temperature[2] = temperature[1];
-        temperature[3] = fields[numFields].toFloat();
+        temperature[3] = fields[0][1].toFloat();
         temperature[4] = temperature[3];
 
         // Gets times
         // Times are (target - start) / ramp rate
         elapsedTime = 0;
-        setPointTimes[0] = actualMillis();                                                          // Start time
-        setPointTimes[1] = (temperature[1] - temperature[0]) * 60000 / fields[1].toFloat();   // Uses rate and difference to find ramp time
-        setPointTimes[2] = fields[2].toFloat() * 60000;                                       // Records hold time
-        setPointTimes[3] = (temperature[3] - temperature[2]) * 60000 / fields[4].toFloat();   // Second ramp
-        setPointTimes[4] = fields[2 + numFields].toFloat() * 60000;                           // Last hold
+        setPointTimes[0] = actualMillis();                                                      // Start time
+        setPointTimes[1] = (temperature[1] - temperature[0]) * 60000 / fields[1][0].toFloat();  // Uses rate and difference to find ramp time
+        setPointTimes[2] = fields[2][0].toFloat() * 60000;                                      // Records hold time
+        setPointTimes[3] = (temperature[3] - temperature[2]) * 60000 / fields[1][1].toFloat();  // Second ramp
+        setPointTimes[4] = fields[2][1].toFloat() * 60000;                                      // Last hold
 
-        for (int i = 1; i <= 4; i++) {
-          setPointTimes[i] += setPointTimes[i - 1]; //Makes the times cummulative
-        }
+        for (int i = 1; i <= 4; i++) setPointTimes[i] += setPointTimes[i - 1]; //Makes the times cummulative
         endTime = int(ceil((setPointTimes[4] - setPointTimes[0]) / 60000)); // Records the end as a string for status display
       }
       break;
@@ -109,14 +103,8 @@ void loop() {
       targetTemp += temperature[stage - 1];
       curTemp = readTemperature(); // Gets current temp
 
-      if (curTemp < targetTemp) {
-        heaterState = HIGH;                   // Too cold
-        digitalWrite(heater, heaterState);
-      }
-      else if (curTemp > (targetTemp + 1)) {
-        heaterState = LOW;                    // Too hot
-        digitalWrite(heater, heaterState);
-      }
+      if (curTemp < (targetTemp - tempTol)) heaterState = HIGH; // Too cold
+      else if (curTemp > targetTemp) heaterState = LOW; // Too hot
       
       // Time
       if (actualMillis() > setPointTimes[stage]) stage++; // Checks if approriate stage
@@ -130,34 +118,24 @@ void loop() {
       printCenter(3, F("Oven Status"));
 
       // Fields
-      fields[numFields * screen] = "  ";
-      fields[numFields * screen] += oneDecimal(curTemp);       // Temp
-      fields[numFields * screen] += "/";
-      fields[numFields * screen] += oneDecimal(targetTemp);   // Target
+      fields[0][screen] = "  ";
+      fields[0][screen] += oneDecimal(curTemp);
+      fields[0][screen] += "/";
+      fields[0][screen] += oneDecimal(targetTemp);
 
-      fields[1 + numFields * screen] = oneDecimal(elapsedTime);   // Time
-      fields[1 + numFields * screen] += "/";
-      fields[1 + numFields * screen] += endTime;                  // End
+      fields[1][screen] = oneDecimal(elapsedTime);
+      fields[1][screen] += "/";
+      fields[1][screen] += endTime;
 
-      if (heaterState) {
-        fields[2 + numFields * screen] = " ON";  // Heater ON
-      }
-      else {
-        fields[2 + numFields * screen] = "OFF"; // Heater OFF
-      }
+      if (heaterState) fields[2][screen] = " ON";
+      else fields[2][screen] = "OFF";
 
-      for (int i = 0; i < numFields; i++) {
-        printRight(i, fields[i + numFields * screen]);
-      }
+      for (int i = 0; i < numFields; i++) printRight(i, fields[i][screen]);
 
       // Check for finish (past stage 4)
-      if (stage == 5) {
-        screen++; // Go to next step
+      if (stage > 4) {
+        screen++;
         lcd.clear();
-        
-        // Turn off heater
-        heaterState = LOW;                  
-        digitalWrite(heater, heaterState);
       }
       delay(300); // Extending cycle time during run time
       break;
@@ -168,14 +146,13 @@ void loop() {
       printLeft(3, "Cur. Temp");
       printRight(3, "   " + oneDecimal(readTemperature()));
 
-      // Turn off heater
-      heaterState = LOW;                  
-      digitalWrite(heater, heaterState);
+      heaterState = LOW; // Turn off heater for safety
       
-      delay(1000);
+      delay(1000); // Slow down code in cooldown period
       break;
   }
 
+  digitalWrite(heater, heaterState);
   delay(25);
 }
 
@@ -198,7 +175,7 @@ void buttonAction() {
       field = constrain(field, 0, numFields - 1);
       break;
 
-    // Next screen
+    // Changing screen
     case 'C':
       screen++;
       lcd.clear();
@@ -214,21 +191,18 @@ void buttonAction() {
 
     // Backspace
     case '#':
-      if (fields[field + numFields * screen].length() > 0) {
-        lcd.clear();
-        fields[field + numFields * screen].remove(fields[field + numFields * screen].length() - 1); // Removes last character
+      if (fields[field][screen].length() > 0) {
+        lcd.clear(); // Need to clear screen to remove leading character
+        fields[field][screen].remove(fields[field][screen].length() - 1); // Removes last character
       }
       break;
 
     // Adding digits and decimal places is done by concatenating the string
     default:
-      if (buttonPressed == '*') {
-        buttonPressed = '.'; // Decimal
-      }
+      if (buttonPressed == '*') buttonPressed = '.'; // Decimal conversion
+
       // Only adds if not at full length
-      if ( fields[field + numFields * screen].length() < maxFieldLength){
-        fields[field + numFields * screen] += buttonPressed;
-      }
+      if (fields[field][screen].length() < maxFieldLength) fields[field][screen] += buttonPressed;
       break;
   }
 }
