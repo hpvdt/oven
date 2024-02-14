@@ -3,14 +3,14 @@
 #include "keypad.hpp"
 
 // Keypad config
-const byte row1 = 3; // Row 1 pin
-const byte row2 = 2;
-const byte row3 = A3;
-const byte row4 = A2;
-const byte col1 = 7; // Column 1 pin
-const byte col2 = 6;
-const byte col3 = 5;
-const byte col4 = 4;
+const byte row1 = PIN_PD3;
+const byte row2 = PIN_PD2;
+const byte row3 = PIN_PC3;
+const byte row4 = PIN_PC2;
+const byte col1 = PIN_PD7;
+const byte col2 = PIN_PD6;
+const byte col3 = PIN_PD5;
+const byte col4 = PIN_PD4;
 
 char buttonPressed;
 // Keypad works by detecting the intersection of a row and col pulling down an input. (A column pulling the row down)

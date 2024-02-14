@@ -8,7 +8,7 @@
 #include "temperature.hpp"
 
 // Heater 
-const byte heater = 12;               // Heater relay pin
+const byte heater = PIN_PB0;          // Heater relay pin
 bool heaterState;                     // Heater state
 
 // Control variables
@@ -48,6 +48,7 @@ void loop() {
   switch (screen) {
     case 0: // Setup first point
       printLeft(0, F("Target Temp"));
+      printLeft(3, oneDecimal(readTemperature()) + " ");
       printLeft(1, F("Rise Rt. c/m"));
       printLeft(2, F("Hold Time (m)"));
       printCenter(3, F("Stg 1"));

@@ -3,9 +3,9 @@
 #include "max6675.hpp"
 
 // MAX6675 Pins
-const byte MAX_SCK = A1;
-const byte MAX_CS = 9;
-const byte MAX_SO = A0;
+const byte MAX_SCK  = PIN_PC1;
+const byte MAX_CS   = PIN_PB1;
+const byte MAX_SO   = PIN_PC0;
 
 void setupMAX6675() {
     pinMode(MAX_SCK, OUTPUT);
@@ -42,7 +42,7 @@ float readTemperatureMAX6675() {
     digitalWrite(MAX_CS, HIGH); // Release chip
 
     // Check if a thermocouple is attached
-    if (temperature & 0x4) return -1;
+    if (temperature & 0x6) return -2.2;
     
     // Remove status bits from end
     temperature >>= 3;

@@ -7,9 +7,9 @@
 #ifdef USE_MAX31855
     #include <Adafruit_MAX31855.h>
 
-    const byte MAXDO     = A0;
-    const byte MAXCS     = 9;
-    const byte MAXCLK    = A1;
+    const byte MAXDO     = PIN_PC0;
+    const byte MAXCS     = PIN_PB1;
+    const byte MAXCLK    = PIN_PC1;
 
     Adafruit_MAX31855 thermocouple(MAXCLK, MAXCS, MAXDO);
 #endif
