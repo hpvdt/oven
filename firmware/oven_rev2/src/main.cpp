@@ -7,12 +7,6 @@
 #include "main.hpp"
 #include "temperature.hpp"
 
-
-// MAX6675 Pins
-const byte MAX_SCK = A1;
-const byte MAX_CS = 9;
-const byte MAX_SO = A0;
-
 // Heater 
 const byte heater = 12;  // Heater relay pin
 bool heaterState;       // State variable
@@ -35,12 +29,14 @@ double elapsedTime;                      // Used for status display
 String endTime;                         // Used for status display (to minimize repeated instructions)
 
 void setup() {
-  setupDisplay();
   setupKeypad();
+  setupTemperature();
 
   pinMode(heater, OUTPUT);            // Controls relay
   heaterState = LOW;                  // Off by default
   digitalWrite(heater, heaterState);
+
+  setupDisplay();
 
   // Initialization
   screen = 0;
@@ -82,7 +78,7 @@ void loop() {
         stage = 1; // Entered first stage
         
         //Sets temperature points
-        temperature[0] = readTemperature(MAX_SCK, MAX_CS, MAX_SO); // Record starting temp
+        temperature[0] = readTemperature(); // Record starting temp
         temperature[1] = fields[0].toFloat();
         temperature[2] = temperature[1];
         temperature[3] = fields[numFields].toFloat();
@@ -111,7 +107,7 @@ void loop() {
       targetTemp = (actualMillis() - setPointTimes[stage - 1]) * (temperature[stage] - temperature[stage - 1]);
       targetTemp /= (setPointTimes[stage] - setPointTimes[stage - 1]);
       targetTemp += temperature[stage - 1];
-      curTemp = readTemperature(MAX_SCK, MAX_CS, MAX_SO); // Gets current temp
+      curTemp = readTemperature(); // Gets current temp
 
       if (curTemp < targetTemp) {
         heaterState = HIGH;                   // Too cold
@@ -170,7 +166,7 @@ void loop() {
       printCenter(0, F("Process Complete"));
       printCenter(1, F("Oven is disabled"));
       printLeft(3, "Cur. Temp");
-      printRight(3, "   " + oneDecimal(readTemperature(MAX_SCK, MAX_CS, MAX_SO)));
+      printRight(3, "   " + oneDecimal(readTemperature()));
 
       // Turn off heater
       heaterState = LOW;                  

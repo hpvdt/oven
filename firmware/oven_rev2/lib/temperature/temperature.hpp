@@ -7,6 +7,7 @@
 
 void setupMAX6675(byte sclk, byte cs, byte so);
 
-float readTemperature(byte sclk, byte cs, byte so);
+void setupTemperature();
+float readTemperature();
 
 #endif
