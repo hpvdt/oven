@@ -42,7 +42,7 @@ float readTemperatureMAX6675() {
     digitalWrite(MAX_CS, HIGH); // Release chip
 
     // Check if a thermocouple is attached
-    if (temperature & 0x6) return -1;
+    if (temperature & 0x4) return -1;
     
     // Remove status bits from end
     temperature >>= 3;
