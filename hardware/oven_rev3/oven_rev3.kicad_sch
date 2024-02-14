@@ -1453,9 +1453,6 @@
   (junction (at 228.6 52.07) (diameter 0) (color 0 0 0 0)
     (uuid dc7e160d-5250-48de-a17b-fc918a757c39)
   )
-  (junction (at 43.18 191.77) (diameter 0) (color 0 0 0 0)
-    (uuid e58bbd4a-508b-49de-92d1-08ef7c0f6b94)
-  )
   (junction (at 33.02 184.15) (diameter 0) (color 0 0 0 0)
     (uuid eef7e5a3-9227-4649-ad1a-ecf2ef894d14)
   )
@@ -1585,6 +1582,10 @@
     (stroke (width 0) (type default))
     (uuid 1c623d54-d02b-4594-96b2-2acdd7a8ee1c)
   )
+  (wire (pts (xy 229.87 77.47) (xy 223.52 77.47))
+    (stroke (width 0) (type default))
+    (uuid 1dde4d41-a3a2-46f9-a5a8-abd74f79ddcd)
+  )
   (polyline (pts (xy 105.41 111.76) (xy 185.42 111.76))
     (stroke (width 0) (type default))
     (uuid 21abee0d-a022-4453-8624-69ba89589140)
@@ -1639,6 +1640,10 @@
   (wire (pts (xy 60.96 52.07) (xy 64.77 52.07))
     (stroke (width 0) (type default))
     (uuid 3b9298cd-1a37-419f-83e7-3a1fa207dac2)
+  )
+  (wire (pts (xy 38.1 189.23) (xy 43.18 189.23))
+    (stroke (width 0) (type default))
+    (uuid 3e97c709-41ea-4580-93e8-a9051225e58e)
   )
   (bus (pts (xy 77.47 182.88) (xy 77.47 185.42))
     (stroke (width 0) (type default))
@@ -1775,10 +1780,6 @@
   (wire (pts (xy 60.96 34.29) (xy 85.09 34.29))
     (stroke (width 0) (type default))
     (uuid b25ec173-e8f8-4bde-8680-19d2071c06a1)
-  )
-  (wire (pts (xy 43.18 189.23) (xy 43.18 191.77))
-    (stroke (width 0) (type default))
-    (uuid b2699950-be4a-4798-baa9-a7c0a8b351f2)
   )
   (bus (pts (xy 69.85 125.73) (xy 69.85 128.27))
     (stroke (width 0) (type default))
@@ -1992,6 +1993,10 @@
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 0c73fe2b-9911-4202-add9-d59a04cee84b)
   )
+  (label "TC-" (at 223.52 77.47 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 1757a4f7-54a9-4ec7-809c-e0c42e34355c)
+  )
   (label "COL_{4}" (at 67.31 87.63 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 24dfdce4-6227-4d85-8286-10db58fb11d4)
@@ -2092,6 +2097,10 @@
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid b8107c03-8d05-4542-bef1-2132b092e665)
   )
+  (label "TC-" (at 38.1 189.23 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid be262d16-8275-4969-a732-fa6755585e3b)
+  )
   (label "TX" (at 231.14 142.24 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c0cc6f42-3ee8-4636-9239-5a8a1a909a37)
@@ -2185,7 +2194,7 @@
     (pin "8" (uuid ff6ee71e-066f-4312-abbc-13600f8b5c97))
     (pin "9" (uuid 8802918b-9122-4293-9bd5-15b1ed08f9e7))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "U1") (unit 1)
         )
@@ -2217,7 +2226,7 @@
     (pin "7" (uuid 3c84b035-b0ba-4902-acc5-7d24e2857796))
     (pin "8" (uuid 71ce8f48-a768-4b2b-859c-972d889435bb))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J3") (unit 1)
         )
@@ -2245,7 +2254,7 @@
     (pin "3" (uuid 20311be1-79f2-4357-92b8-1d519f861e80))
     (pin "4" (uuid fc407900-77a3-45e1-9416-7e6b2c6a6f0c))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J6") (unit 1)
         )
@@ -2278,7 +2287,7 @@
     (pin "8" (uuid c8e37da6-ebb0-43fe-ac2f-516c922a3a0d))
     (pin "9" (uuid b12b8b0c-b0c0-4db5-8619-9c4f7b083c34))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J8") (unit 1)
         )
@@ -2304,7 +2313,7 @@
     (pin "1" (uuid 7b0e9163-1f9c-4baa-9a96-0fbbf818c014))
     (pin "2" (uuid 2b2401df-4dce-4c07-9364-9ffc77f5ce5e))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J1") (unit 1)
         )
@@ -2330,7 +2339,7 @@
     (pin "1" (uuid 66714e64-81e0-48c5-a42a-530a8fd6bbf7))
     (pin "2" (uuid 867b706d-d9bd-4937-b942-4fd338f5af30))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J5") (unit 1)
         )
@@ -2356,7 +2365,7 @@
     (pin "1" (uuid 02af92db-df1d-4437-b2ba-55b8ace40393))
     (pin "2" (uuid 20fdab36-8e88-480b-a311-c02b81e4f500))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J10") (unit 1)
         )
@@ -2381,7 +2390,7 @@
     )
     (pin "1" (uuid 15ecaf2d-7d18-4574-8040-4aaf20294dbf))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J7") (unit 1)
         )
@@ -2406,7 +2415,7 @@
     )
     (pin "1" (uuid a2eba2eb-b967-4022-9b42-f8a8c1c7d257))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J9") (unit 1)
         )
@@ -2431,7 +2440,7 @@
     )
     (pin "1" (uuid 8448a627-2e30-485d-a445-f3ada62777a8))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR016") (unit 1)
         )
@@ -2456,7 +2465,7 @@
     )
     (pin "1" (uuid c44c18d0-3177-4201-8705-7f8f337e3dbf))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR017") (unit 1)
         )
@@ -2481,7 +2490,7 @@
     )
     (pin "1" (uuid 949133d6-a4e4-451f-a1e4-313130a7b528))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR018") (unit 1)
         )
@@ -2511,7 +2520,7 @@
     (pin "5" (uuid b3b3afe2-ab77-4af5-80bc-4e8a4a197671))
     (pin "6" (uuid 75acdd5f-685e-41fc-a65c-c391ae8c1bd3))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J4") (unit 1)
         )
@@ -2536,7 +2545,7 @@
     )
     (pin "1" (uuid 3c6fd98f-207f-4509-a7d8-e19152d77b51))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR014") (unit 1)
         )
@@ -2561,7 +2570,7 @@
     )
     (pin "1" (uuid 44facdd8-8ef0-4732-be84-018740639804))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR012") (unit 1)
         )
@@ -2586,7 +2595,7 @@
     )
     (pin "1" (uuid 852c96a8-b345-4cc7-b019-80519e6cae59))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "H1") (unit 1)
         )
@@ -2611,7 +2620,7 @@
     )
     (pin "1" (uuid 84e2ba9f-6dbc-4bbc-b8d6-f38320588bed))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR021") (unit 1)
         )
@@ -2635,7 +2644,7 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "H2") (unit 1)
         )
@@ -2667,7 +2676,7 @@
     (pin "7" (uuid 564f4c03-6354-4eee-8004-ebb2405f283e))
     (pin "8" (uuid ff1163c9-4a2a-43ca-8af0-c01035f9171e))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "U2") (unit 1)
         )
@@ -2692,7 +2701,7 @@
     )
     (pin "1" (uuid b9cd182e-6e80-4521-9b44-a57b1f552f3b))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR023") (unit 1)
         )
@@ -2717,7 +2726,7 @@
     )
     (pin "1" (uuid 8bb837ee-b16b-46fe-9308-9aa131ba122f))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR02") (unit 1)
         )
@@ -2742,7 +2751,7 @@
     )
     (pin "1" (uuid 403c1b9e-6d55-4645-ad19-0b2cfee9381d))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR024") (unit 1)
         )
@@ -2767,34 +2776,9 @@
     )
     (pin "1" (uuid 5e7936ba-b7d5-4683-a04b-a3f198f65fc7))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR026") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "power:GND") (at 229.87 77.47 270) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 00000000-0000-0000-0000-000060ba6036)
-    (property "Reference" "#PWR019" (at 223.52 77.47 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (at 224.79 77.47 90)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 229.87 77.47 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 229.87 77.47 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid d87bf257-027b-4435-8aa7-e4d8c2112a08))
-    (instances
-      (project "oven_rev2"
-        (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
-          (reference "#PWR019") (unit 1)
         )
       )
     )
@@ -2817,7 +2801,7 @@
     )
     (pin "1" (uuid 984166fa-6863-4744-b00d-13c605f61f9b))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR022") (unit 1)
         )
@@ -2843,7 +2827,7 @@
     (pin "1" (uuid 5e5391da-9984-4f04-a863-65e7ed7ca48b))
     (pin "2" (uuid 25ab2e99-e449-47ea-a688-bc44450aa45a))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "C4") (unit 1)
         )
@@ -2868,7 +2852,7 @@
     )
     (pin "1" (uuid b6dc1879-0eac-47bb-ae03-aba5965d52f0))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR025") (unit 1)
         )
@@ -2893,7 +2877,7 @@
     )
     (pin "1" (uuid 9d51bbb7-42c8-48ea-8e71-b2bf4b27f244))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR013") (unit 1)
         )
@@ -2918,7 +2902,7 @@
     )
     (pin "1" (uuid 8b42b8e8-6f43-44cd-8eb0-5e9b22cb44d0))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR01") (unit 1)
         )
@@ -2943,7 +2927,7 @@
     )
     (pin "1" (uuid dc53a941-ee3e-48b9-9624-5fc51b23ecbd))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR011") (unit 1)
         )
@@ -2968,7 +2952,7 @@
     )
     (pin "1" (uuid d8795f54-3a2a-4d87-813d-d6d94b335d03))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR020") (unit 1)
         )
@@ -2995,7 +2979,7 @@
     (pin "2" (uuid f45ba640-b6d2-4e0f-9176-98a151290396))
     (pin "3" (uuid 49f7ddc1-2ad3-4936-a151-50ffcaf692ef))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "Y1") (unit 1)
         )
@@ -3020,7 +3004,7 @@
     )
     (pin "1" (uuid 21658cf5-d90f-4f01-a9d1-25c7897976bd))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR015") (unit 1)
         )
@@ -3045,7 +3029,7 @@
     )
     (pin "1" (uuid 248dc860-d431-4e94-93d4-cf9b7ea12dcc))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR06") (unit 1)
         )
@@ -3075,7 +3059,7 @@
     (pin "5" (uuid d065e481-e260-4b46-b93a-4c9b5c54f76a))
     (pin "6" (uuid e8ec2a90-2fcc-4ff5-997c-af40649c2d3e))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "J2") (unit 1)
         )
@@ -3101,7 +3085,7 @@
     (pin "1" (uuid 973e666e-8f15-4cd7-8d91-fb82d9cceabb))
     (pin "2" (uuid c19f4f44-1ffe-44cc-97c1-eb044ebdeafc))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "C2") (unit 1)
         )
@@ -3127,7 +3111,7 @@
     (pin "1" (uuid 141accec-60bc-4ac4-91e6-2ac1882e0955))
     (pin "2" (uuid 889b23d1-da6d-4a48-9ebd-80220281d350))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "R1") (unit 1)
         )
@@ -3152,7 +3136,7 @@
     )
     (pin "1" (uuid edec1dcc-303b-44d2-86c7-70460d4ff270))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR03") (unit 1)
         )
@@ -3177,7 +3161,7 @@
     )
     (pin "1" (uuid e2e74d4e-141c-4d3f-9f04-bced106de9ea))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR010") (unit 1)
         )
@@ -3202,7 +3186,7 @@
     )
     (pin "1" (uuid 1122f5c3-de68-4020-9269-9b5bd8cc1426))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR09") (unit 1)
         )
@@ -3228,7 +3212,7 @@
     (pin "1" (uuid 9796d62c-e500-49f0-8477-c9eae6629046))
     (pin "2" (uuid 9d0c092d-18bb-4b05-b815-2841a3f4bb0c))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "C3") (unit 1)
         )
@@ -3253,7 +3237,7 @@
     )
     (pin "1" (uuid d30608cf-5881-4a45-b4eb-003dac7fc9f1))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR08") (unit 1)
         )
@@ -3279,7 +3263,7 @@
     (pin "1" (uuid a1fe8518-65d5-4f24-8efd-a62a139e2b96))
     (pin "2" (uuid 634d135e-08bd-4556-9cb9-c8677f2221f6))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "JP1") (unit 1)
         )
@@ -3305,7 +3289,7 @@
     (pin "1" (uuid eef0ed09-a9a9-46f1-bda3-4cd72c441b49))
     (pin "2" (uuid 01ac3eb0-18b0-4d70-9b47-a575e1c2a43c))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "C1") (unit 1)
         )
@@ -3330,7 +3314,7 @@
     )
     (pin "1" (uuid 7b89897a-1ea5-4af7-91b0-c19744514f7a))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR04") (unit 1)
         )
@@ -3355,7 +3339,7 @@
     )
     (pin "1" (uuid 3db1aef4-46fc-4d38-953e-dd0c17dced5d))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR07") (unit 1)
         )
@@ -3380,7 +3364,7 @@
     )
     (pin "1" (uuid cd7aeeb0-8d87-48e4-a3bc-fc609a6b4883))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "#PWR05") (unit 1)
         )
@@ -3406,7 +3390,7 @@
     (pin "1" (uuid cef9ded0-2b78-46a0-b213-4a6d45c2f8b0))
     (pin "2" (uuid 6136a80b-9438-4439-aa13-feca759328f8))
     (instances
-      (project "oven_rev2"
+      (project "oven_rev3"
         (path "/581ddb5d-4155-448c-9162-b92ba6b86570"
           (reference "BZ1") (unit 1)
         )
