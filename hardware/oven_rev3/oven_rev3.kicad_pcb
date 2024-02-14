@@ -1991,7 +1991,7 @@
   (gr_text "NUMBER PAD" (at 101.6 85.725 90) (layer "F.SilkS") (tstamp e875a185-e457-43e5-951d-c3231aba2013)
     (effects (font (size 1.5 1.5) (thickness 0.225)))
   )
-  (gr_text "Space for other\nconnected things\nin the casing" (at 189.992 105.156) (layer "Dwgs.User") (tstamp 1e44cb07-5186-424c-b5c0-2e2f59e52b37)
+  (gr_text "Space for other\nconnected things\nin the casing" (at 189.992 105.156) (layer "Cmts.User") (tstamp 1e44cb07-5186-424c-b5c0-2e2f59e52b37)
     (effects (font (size 10 10) (thickness 1.5)))
   )
   (dimension (type aligned) (layer "Dwgs.User") (tstamp 078a434e-5fc3-4fa3-b757-7eb21fa1d0a5)

@@ -1890,7 +1890,7 @@
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 24dfdce4-6227-4d85-8286-10db58fb11d4)
   )
-  (label "COL_{3" (at 67.31 90.17 180) (fields_autoplaced)
+  (label "COL_{3}" (at 67.31 90.17 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 267c2a8a-99e2-425a-85cb-537575165313)
   )
