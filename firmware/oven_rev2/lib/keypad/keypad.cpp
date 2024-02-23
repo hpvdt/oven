@@ -38,6 +38,9 @@ char checkKeypad() {
 
     char button = 'x'; // Stores button pressed (x will return if nothing pressed)
 
+    const unsigned long exitTime = 1000; // Time to hold 'D' to restart the system.
+    unsigned long startTime = millis();
+
     digitalWrite(col1, teststate);
     digitalWrite(col2, !teststate);
     digitalWrite(col3, !teststate);
@@ -76,6 +79,8 @@ char checkKeypad() {
     if (teststate == digitalRead(row4)) button = 'D';
     waitForRelease(teststate);
     digitalWrite(col4, !teststate);
+
+    if ((millis() - startTime > exitTime) && (button == 'D')) button = 'E'; // Mark for exit
 
     return button;
 }

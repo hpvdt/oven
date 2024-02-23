@@ -54,6 +54,8 @@ void loop() {
       for (int i = 0; i < numFields; i++) printRight(i, fields[i][screen]);
       printRight(3, "Stg 2>");
 
+      heaterState = LOW;
+
       buttonAction(); // Performs button action
       break;
     case 1: // Second point config
@@ -65,6 +67,8 @@ void loop() {
       printCursor();
       for (int i = 0; i < numFields; i++) printRight(i, fields[i][screen]);
       printRight(3, "Strt>");
+
+      heaterState = LOW;
 
       buttonAction(); // Performs button action
 
@@ -87,7 +91,7 @@ void loop() {
         setPointTimes[3] = (temperature[3] - temperature[2]) * 60000 / fields[1][1].toFloat();  // Second ramp
         setPointTimes[4] = fields[2][1].toFloat() * 60000;                                      // Last hold
 
-        for (int i = 1; i <= 4; i++) setPointTimes[i] += setPointTimes[i - 1]; //Makes the times cummulative
+        for (int i = 1; i <= 4; i++) setPointTimes[i] += setPointTimes[i - 1]; // Makes the times cummulative
         endTime = int(ceil((setPointTimes[4] - setPointTimes[0]) / 60000)); // Records the end as a string for status display
       }
       break;
@@ -107,15 +111,15 @@ void loop() {
       
       // Time
       float elapsedTime;
-      if (actualMillis() > setPointTimes[bakeStage]) bakeStage++; // Checks if approriate stage
       elapsedTime = actualMillis() - setPointTimes[0];            // Elaplsed time in ms
+      if (elapsedTime > setPointTimes[bakeStage]) bakeStage++;    // Checks if approriate stage
       elapsedTime /= 60000;                                       // Elapsed time in minutes
       
       // Screen stuff
-      printLeft(0, F("Cur/Tar"));
-      printLeft(1, F("Elp/End"));
-      printLeft(2, F("Heater"));
-      printCenter(3, F("Oven Status"));
+      printLeft(1, F("Cur/Tar"));
+      printLeft(2, F("Elp/End"));
+      printLeft(3, F("Heater"));
+      printCenter(0, F("Oven Status"));
 
       // Fields
       fields[0][screen] = "  ";
@@ -130,7 +134,14 @@ void loop() {
       if (heaterState) fields[2][screen] = " ON";
       else fields[2][screen] = "OFF";
 
-      for (int i = 0; i < numFields; i++) printRight(i, fields[i][screen]);
+      for (int i = 0; i < numFields; i++) printRight(i + 1, fields[i][screen]);
+
+      // Check and handle reset condition
+      if (checkKeypad() == 'E') {
+        screen = 0;
+        field = 0;
+        heaterState = LOW;
+      }
 
       // Check for finish (past stage 4)
       if (bakeStage > 4) {
