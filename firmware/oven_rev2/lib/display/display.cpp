@@ -4,21 +4,20 @@
 
 #include "display.hpp"
 
-// A4 is SDA
-// A5 is SCL
-
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 //LiquidCrystal_I2C lcd(0x27, 4, 5, 6, 0, 1, 2, 3, 7, POSITIVE);
 
 void setupDisplay() {
-    lcd.begin(20, 4);   // Set up display. 20 character in 4 rows
-    lcd.clear();        // Clear the display
+  // TODO: Figure out how to recover display control following WDT reset
 
-    // Splash screen
-    printCenter(1, F("Oven Control System"));
-    printCenter(2, F("Designed for HPDVT"));
-    delay(1000);
-    lcd.clear();
+  lcd.begin(20, 4);   // Set up display. 20 character in 4 rows
+  lcd.clear();        // Clear the display
+
+  // Splash screen
+  printCenter(1, F("Oven Control System"));
+  printCenter(2, F("Designed for HPDVT"));
+  delay(1000);
+  lcd.clear();
 }
 
 String oneDecimal(double input){

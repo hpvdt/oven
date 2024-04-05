@@ -6,6 +6,7 @@
 #include "keypad.hpp"
 #include "main.hpp"
 #include "temperature.hpp"
+#include "watchdog.hpp"
 
 // Heater 
 const byte heater = PIN_PB0;          // Heater relay pin
@@ -27,6 +28,8 @@ unsigned long setPointTimes[5];       // Records time for changes
 String endTime;                       // Used for status display (to minimize repeated calculation)
 
 void setup() {
+  disableWatchdog(); // Needs to go first to prevent repeated watchdog resets
+
   setupKeypad();
   setupTemperature();
 
@@ -39,6 +42,9 @@ void setup() {
 
   screen = 0;
   field = 0;
+
+  enableWatchdog(); 
+  // NOTE: Currently the screen will shutdown until a complete power cycle after WDT reset
 }
 
 void loop() {
@@ -159,12 +165,14 @@ void loop() {
 
       heaterState = LOW; // Turn off heater for safety
       
-      delay(1000); // Slow down code in cooldown period
+      delay(200); // Slow down code in cooldown period
       break;
   }
 
   digitalWrite(heater, heaterState);
   delay(25);
+
+  resetWatchdog();
 }
 
 void buttonAction() {
