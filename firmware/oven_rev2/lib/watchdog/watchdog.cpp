@@ -4,7 +4,7 @@
 
 #include "watchdog.hpp"
 
-const uint8_t TIMEOUT = WDTO_500MS; // Timeout period for watchdog timer
+const uint8_t TIMEOUT = WDTO_8S; // Timeout period for watchdog timer
 
 /**
  * \brief Configures watchdog timer for system
