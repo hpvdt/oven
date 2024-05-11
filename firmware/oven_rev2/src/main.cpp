@@ -97,6 +97,14 @@ void loop() {
         setPointTimes[3] = (temperature[3] - temperature[2]) * 60000 / fields[1][1].toFloat();  // Second ramp
         setPointTimes[4] = fields[2][1].toFloat() * 60000;                                      // Last hold
 
+        // If there is no second stage (signified by having the second stage temp < first)
+        if (temperature[3] < temperature[1]) {
+          temperature[3] = temperature[2];
+          temperature[4] = temperature[2];
+          setPointTimes[3] = 0;
+          setPointTimes[4] = 0;
+        }
+
         for (int i = 1; i <= 4; i++) setPointTimes[i] += setPointTimes[i - 1]; // Makes the times cummulative
         endTime = int(ceil((setPointTimes[4] - setPointTimes[0]) / 60000)); // Records the end as a string for status display
       }
@@ -144,6 +152,7 @@ void loop() {
 
       // Check and handle reset condition
       if (checkKeypad() == 'E') {
+        setupDisplay();
         screen = 0;
         field = 0;
         heaterState = LOW;
